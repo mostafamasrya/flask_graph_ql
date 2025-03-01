@@ -10,10 +10,31 @@ app = Flask(__name__)
 
 
 books_data = [
-    {"title": "1984", "author": "George Orwell", "year_published": 1949},
-    {"title": "To Kill a Mockingbird", "author": "Harper Lee", "year_published": 1960},
-    {"title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "year_published": 1925},
+    {
+        "title": "1984",
+        "author": "George Orwell",
+        "year_published": 1949,
+        "topics": [{"id": 1, "name": "Dystopian"}, {"id": 2, "name": "Politics"}],
+    },
+    {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "year_published": 1960,
+        "topics": [{"id": 3, "name": "Racism"}, {"id": 4, "name": "Law"}],
+    },
+    {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "year_published": 1925,
+        "topics": [{"id": 5, "name": "Wealth"}, {"id": 6, "name": "Love"}],
+    },
 ]
+
+
+
+class Topic(graphene.ObjectType):
+    id = graphene.Int()
+    name = graphene.String()
 
 
 #  GraphQL ObjectType, meaning it defines a structure for our data.
@@ -22,6 +43,9 @@ class Book(graphene.ObjectType):
     title = graphene.String()
     author = graphene.String()
     year_published = graphene.Int()
+    topics = graphene.List(Topic)
+
+
 
 
 
@@ -82,4 +106,3 @@ if __name__ == "__main__":
 
 
 
-    
